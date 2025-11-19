@@ -12,7 +12,7 @@ CORS(app)
 
 # Modify model loading to print confirmation
 try:
-    model = tf.keras.models.load_model('model/DR-Model4-94.1.h5')
+    model = tf.keras.models.load_model('model/DR4.h5')
     print("Model loaded successfully!")
 except Exception as e:
     print(f"Error loading model: {e}")

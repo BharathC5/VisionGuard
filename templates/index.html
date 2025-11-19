@@ -265,88 +265,363 @@
       </div>
       <div class="uploaded-image-container"></div>
     </section>
+    <!DOCTYPE html>
+    <html lang="en">
+      <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <title>VisionGuard — Quick Questionnaire (inline CSS)</title>
 
-    <footer class="contact-us" id="contact-us">
-      <div class="col-1">
-        <div class="footer-logo-title">
-          <a href="#"
-            ><img class="footer-logo" src="static/img/icon.png" alt=""
-          /></a>
-          <a href="#"><div class="footer-title">VisionGuard</div></a>
-        </div>
-        <div>
-          <ul class="social">
-            <li>
-              <a href="https://github.com/BharathC050903"
-                ><img src="static/img/social/github.png" alt=""
+        <!-- Inline/internal CSS (single-file) -->
+        <style>
+          :root {
+            --card-bg: #fff;
+            --accent: #2563eb;
+            --muted: #6b7280;
+            --panel-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+            --radius: 12px;
+          }
+          body {
+            font-family: "Roboto", system-ui, -apple-system, "Segoe UI", Roboto,
+              "Helvetica Neue", Arial;
+            background: #f5f7fb;
+            margin: 24px;
+            color: #0f172a;
+            -webkit-font-smoothing: antialiased;
+          }
+
+          .form-wrapper {
+            max-width: 820px;
+            margin: 0 auto;
+          }
+
+          .card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            box-shadow: var(--panel-shadow);
+            padding: 20px;
+            overflow: hidden;
+          }
+
+          h2 {
+            margin: 0 0 12px 0;
+            font-size: 1.15rem;
+          }
+          p.lead {
+            margin: 0 0 18px 0;
+            color: var(--muted);
+            font-size: 0.95rem;
+          }
+
+          .row {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+          }
+          .col {
+            flex: 1 1 220px;
+            min-width: 180px;
+            display: flex;
+            flex-direction: column;
+          }
+          label {
+            font-weight: 500;
+            margin-bottom: 6px;
+          }
+          input[type="number"],
+          input[type="date"],
+          input[type="text"] {
+            padding: 10px 12px;
+            border-radius: 8px;
+            border: 1px solid #e6e9ef;
+            font-size: 0.95rem;
+          }
+          .hint {
+            color: var(--muted);
+            font-size: 0.85rem;
+            margin-top: 6px;
+          }
+
+          .radio-group {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+          }
+          .radio-group label {
+            font-weight: 500;
+            cursor: pointer;
+          }
+
+          .conditional {
+            display: none;
+            margin-left: 2px;
+          }
+
+          .actions {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-top: 14px;
+          }
+          .btn {
+            background: linear-gradient(180deg, var(--accent), #1e40af);
+            color: white;
+            padding: 9px 14px;
+            border-radius: 10px;
+            border: 0;
+            cursor: pointer;
+            font-weight: 600;
+          }
+          .btn.secondary {
+            background: #eef2ff;
+            color: #1e3a8a;
+            border: 1px solid #dbeafe;
+          }
+
+          .output {
+            margin-top: 14px;
+            padding: 12px;
+            border-radius: 10px;
+            background: #fff;
+            border: 1px solid #eef2ff;
+            font-weight: 600;
+            color: #0f172a;
+          }
+
+          .small-muted {
+            color: var(--muted);
+            font-weight: 500;
+            font-size: 0.9rem;
+          }
+          @media (max-width: 560px) {
+            .row {
+              flex-direction: column;
+              align-items: stretch;
+            }
+          }
+        </style>
+      </head>
+      <body>
+        <main class="form-wrapper" aria-labelledby="qTitle">
+          <div class="card" role="region" aria-live="polite">
+            <h2 id="qTitle">Quick health questionnaire</h2>
+            <p class="lead">
+              Helps tailor the follow-up recommendation after your VisionGuard
+              image diagnosis. This is informational only.
+            </p>
+
+            <form id="vgForm" novalidate>
+              <!-- Age -->
+              <div class="row">
+                <div class="col">
+                  <label for="age">What is your current age?</label>
+                  <input
+                    id="age"
+                    name="age"
+                    type="number"
+                    min="1"
+                    max="149"
+                    placeholder="e.g., 32"
+                    required
+                  />
+                  <div class="hint">Enter an integer between 1 and 149.</div>
+                </div>
+
+                <div class="col">
+                  <label>Have you been tested for diabetes?</label>
+                  <div
+                    class="radio-group"
+                    role="radiogroup"
+                    aria-labelledby="testedLabel"
+                  >
+                    <label
+                      ><input type="radio" name="tested" value="yes" />
+                      Yes</label
+                    >
+                    <label
+                      ><input type="radio" name="tested" value="no" checked />
+                      No</label
+                    >
+                  </div>
+                  <div class="hint">
+                    If yes, you'll be prompted for test date & reading.
+                  </div>
+                </div>
+              </div>
+
+              <!-- If tested yes -->
+              <div id="testedFields" class="conditional" aria-hidden="true">
+                <div class="row">
+                  <div class="col">
+                    <label for="lastTestDate"
+                      >When did you take the last diabetes test?</label
+                    >
+                    <input id="lastTestDate" name="lastTestDate" type="date" />
+                    <div class="hint">If unknown, leave blank.</div>
+                  </div>
+
+                  <div class="col">
+                    <label for="testReading"
+                      >What was the reading? (numeric)</label
+                    >
+                    <input
+                      id="testReading"
+                      name="testReading"
+                      type="text"
+                      inputmode="decimal"
+                      placeholder="e.g., 120"
+                    />
+                    <div class="hint">
+                      If you know units (mg/dL), note them in the reading
+                      (example: 120 mg/dL).
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Family history -->
+              <div class="row">
+                <div class="col">
+                  <label>Do you have any family history of diabetes?</label>
+                  <div class="radio-group">
+                    <label
+                      ><input type="radio" name="family" value="yes" />
+                      Yes</label
+                    >
+                    <label
+                      ><input type="radio" name="family" value="no" checked />
+                      No</label
+                    >
+                  </div>
+                </div>
+
+                <!-- If family = no, ask last doctor visit -->
+                <div
+                  id="lastVisitIfNoFamily"
+                  class="col conditional"
+                  aria-hidden="true"
+                >
+                  <label for="lastDoctorVisit"
+                    >When was your last general doctor visit?</label
+                  >
+                  <input
+                    id="lastDoctorVisit"
+                    name="lastDoctorVisit"
+                    type="date"
+                  />
+                  <div class="hint">Optional — helps refine timing.</div>
+                </div>
+              </div>
+
+              <!-- Actions -->
+              <div class="actions">
+                <button type="button" id="recommendBtn" class="btn">
+                  Get recommendation
+                </button>
+                <button type="button" id="resetBtn" class="btn secondary">
+                  Reset form
+                </button>
+                <div class="small-muted" style="margin-left: auto">
+                  Stage (0–4) will be provided by backend and used in
+                  recommendation.
+                </div>
+              </div>
+
+              <div id="output" class="output" role="status" aria-live="polite">
+                Recommendation will appear here.
+              </div>
+            </form>
+          </div>
+        </main>
+
+        <footer class="contact-us" id="contact-us">
+          <div class="col-1">
+            <div class="footer-logo-title">
+              <a href="#"
+                ><img class="footer-logo" src="static/img/icon.png" alt=""
               /></a>
-            </li>
-            <li>
-              <a href="https://www.linkedin.com/in/bharath-chandru-3237a5304/"
-                ><img src="static/img/social/linkedIn.png" alt=""
-              /></a>
-            </li>
-          </ul>
-        </div>
-      </div>
-      <div class="links-and-reference">
-        <h6 class="footer-heading">Links & Reference</h6>
-        <ul>
-          <li>
-            <a
-              href="https://www.kaggle.com/competitions/aptos2019-blindness-detection"
-              >APTOS dataset
-              <img src="static/img/external-link-svgrepo-com.png" alt=""
-            /></a>
-          </li>
-          <li>
-            <a
-              href="https://www.nei.nih.gov/learn-about-eye-health/eye-conditions-and-diseases/diabetic-retinopathy"
-              >NIE-NIH
-              <img src="static/img/external-link-svgrepo-com.png" alt=""
-            /></a>
-          </li>
-          <li>
-            <a
-              href="https://www.mayoclinic.org/diseases-conditions/diabetic-retinopathy/symptoms-causes/syc-20371611"
-              >Mayo Clinic
-              <img src="static/img/external-link-svgrepo-com.png" alt=""
-            /></a>
-          </li>
-          <li>
-            <a
-              href="https://www.aao.org/eye-health/diseases/what-is-diabetic-retinopathy"
-              >AAO <img src="static/img/external-link-svgrepo-com.png" alt=""
-            /></a>
-          </li>
-        </ul>
-      </div>
-      <div class="links-and-reference">
-        <h6 class="footer-heading">About</h6>
-        <ul>
-          <li>
-            <a href="#">Home</a>
-          </li>
-          <li>
-            <a href="#about-section">What is Diabetic retinopathy?</a>
-          </li>
-          <li>
-            <a href="#stages">Stages of Diabetic retinopathy</a>
-          </li>
-          <li>
-            <a href="#diagnosis">Diagnosis</a>
-          </li>
-        </ul>
-      </div>
-      <div class="links-and-reference">
-        <h6 class="footer-heading">Contact</h6>
-        <ul>
-          <li>Bharath C</li>
-          <li>BMS College of Engineering</li>
-          <li>Email: bharathchandru5459@gmail.com</li>
-        </ul>
-      </div>
-    </footer>
+              <a href="#"><div class="footer-title">VisionGuard</div></a>
+            </div>
+            <div>
+              <ul class="social">
+                <li>
+                  <a href="https://github.com/BharathC050903"
+                    ><img src="static/img/social/github.png" alt=""
+                  /></a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.linkedin.com/in/bharath-chandru-3237a5304/"
+                    ><img src="static/img/social/linkedIn.png" alt=""
+                  /></a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="links-and-reference">
+            <h6 class="footer-heading">Links & Reference</h6>
+            <ul>
+              <li>
+                <a
+                  href="https://www.kaggle.com/competitions/aptos2019-blindness-detection"
+                  >APTOS dataset
+                  <img src="static/img/external-link-svgrepo-com.png" alt=""
+                /></a>
+              </li>
+              <li>
+                <a
+                  href="https://www.nei.nih.gov/learn-about-eye-health/eye-conditions-and-diseases/diabetic-retinopathy"
+                  >NIE-NIH
+                  <img src="static/img/external-link-svgrepo-com.png" alt=""
+                /></a>
+              </li>
+              <li>
+                <a
+                  href="https://www.mayoclinic.org/diseases-conditions/diabetic-retinopathy/symptoms-causes/syc-20371611"
+                  >Mayo Clinic
+                  <img src="static/img/external-link-svgrepo-com.png" alt=""
+                /></a>
+              </li>
+              <li>
+                <a
+                  href="https://www.aao.org/eye-health/diseases/what-is-diabetic-retinopathy"
+                  >AAO
+                  <img src="static/img/external-link-svgrepo-com.png" alt=""
+                /></a>
+              </li>
+            </ul>
+          </div>
+          <div class="links-and-reference">
+            <h6 class="footer-heading">About</h6>
+            <ul>
+              <li>
+                <a href="#">Home</a>
+              </li>
+              <li>
+                <a href="#about-section">What is Diabetic retinopathy?</a>
+              </li>
+              <li>
+                <a href="#stages">Stages of Diabetic retinopathy</a>
+              </li>
+              <li>
+                <a href="#diagnosis">Diagnosis</a>
+              </li>
+            </ul>
+          </div>
+          <div class="links-and-reference">
+            <h6 class="footer-heading">Contact</h6>
+            <ul>
+              <li>Bharath C</li>
+              <li>BMS College of Engineering</li>
+              <li>Email: bharathchandru5459@gmail.com</li>
+            </ul>
+          </div>
+        </footer>
+      </body>
+      <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+      <script src="{{ url_for('static', filename='js/health_form.js') }}"></script>
+    </html>
   </body>
-  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </html>
