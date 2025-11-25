@@ -601,3 +601,219 @@ footer a:hover {
 .button-80:not(:disabled):active {
   transform: translateY(0.125rem);
 }
+
+/* ===========================================================
+   ===============   SECTION: Fuzzy Engine   =============
+   =========================================================== */
+
+#neuro-fuzzy {
+  /* master font size for this section */
+  --fz: 1.4rem; /* 0.9rem smaller, 1.1rem bigger, etc. */
+}
+
+/* wrapper width for the card */
+#neuro-fuzzy .form-wrapper {
+  max-width: 120rem;
+  margin: 0 auto;
+}
+
+/* card layout */
+#neuro-fuzzy .card {
+  background: var(--card-bg, #fff);
+  border-radius: var(--radius, 12px);
+  box-shadow: var(--panel-shadow, 0 6px 20px rgba(0, 0, 0, 0.06));
+  padding: 20px;
+  overflow: hidden;
+  margin-bottom: 10rem;
+}
+
+/* heading + lead */
+#neuro-fuzzy h2 {
+  margin: 0 0 12px 0;
+  font-size: calc(var(--fz) * 1.9);
+}
+
+#neuro-fuzzy p.lead {
+  margin: 0 0 18px 0;
+  color: var(--muted, #6b7280);
+  font-size: calc(var(--fz) * 1.15);
+}
+
+/* layout rows & columns */
+#neuro-fuzzy .row {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+#neuro-fuzzy .col {
+  flex: 1 1 300px;
+  max-width: 400px;
+  min-width: 180px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* labels */
+#neuro-fuzzy label {
+  font-weight: 500;
+  margin-bottom: 6px;
+  font-size: calc(var(--fz) * 1.25);
+}
+
+/* inputs */
+#neuro-fuzzy input[type="number"],
+#neuro-fuzzy input[type="date"],
+#neuro-fuzzy input[type="text"] {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #e6e9ef;
+  font-size: calc(var(--fz) * 1.1);
+}
+
+/* helper text */
+#neuro-fuzzy .hint {
+  color: var(--muted, #6b7280);
+  font-size: calc(var(--fz) * 0.95);
+  margin-top: 6px;
+}
+
+/* radio groups */
+#neuro-fuzzy .radio-group {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+#neuro-fuzzy .radio-group label {
+  font-weight: 500;
+  cursor: pointer;
+  font-size: calc(var(--fz) * 1);
+}
+
+/* conditional sections hidden by default (JS will toggle) */
+#neuro-fuzzy .conditional {
+  display: none;
+  margin-left: 2px;
+}
+
+/* actions & buttons */
+#neuro-fuzzy .actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-top: 14px;
+  flex-wrap: wrap;
+}
+
+#neuro-fuzzy .btn {
+  background: linear-gradient(180deg, #2563eb, #332cf2);
+  color: white;
+  padding: 9px 14px;
+  border-radius: 10px;
+  border: 0;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: calc(var(--fz) * 1);
+}
+
+#neuro-fuzzy .btn.secondary {
+  background: #eef2ff;
+  color: #1e3a8a;
+  border: 1px solid #dbeafe;
+}
+
+/* small muted text on right */
+#neuro-fuzzy .small-muted {
+  color: var(--muted, #6b7280);
+  font-weight: 500;
+  font-size: calc(var(--fz) * 0.95);
+  flex: 1 1 auto;
+}
+
+/* output box */
+#neuro-fuzzy .output {
+  margin-top: 14px;
+  padding: 12px;
+  border-radius: 10px;
+  background: #fff;
+  border: 1px solid #eef2ff;
+  font-weight: 600;
+  color: #0f172a;
+  line-height: 1.4;
+  font-size: calc(var(--fz) * 1);
+}
+
+/* neuro-fuzzy risk chip */
+#neuro-fuzzy .output .risk-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-size: calc(var(--fz) * 1);
+  font-weight: 700;
+  margin-right: 6px;
+}
+
+/* fuzzy level colors */
+#neuro-fuzzy .output.risk-low {
+  border-color: #bbf7d0;
+  background: #f0fdf4;
+  color: #14532d;
+}
+
+#neuro-fuzzy .output.risk-low .risk-chip {
+  background: #bbf7d0;
+  color: #14532d;
+}
+
+#neuro-fuzzy .output.risk-moderate {
+  border-color: #fef3c7;
+  background: #fffbeb;
+  color: #92400e;
+}
+
+#neuro-fuzzy .output.risk-moderate .risk-chip {
+  background: #fed7aa;
+  color: #92400e;
+}
+
+#neuro-fuzzy .output.risk-high {
+  border-color: #fecaca;
+  background: #fef2f2;
+  color: #b91c1c;
+}
+
+#neuro-fuzzy .output.risk-high .risk-chip {
+  background: #fecaca;
+  color: #7f1d1d;
+}
+
+#neuro-fuzzy .output.risk-urgent {
+  border-color: #f97373;
+  background: #fef2f2;
+  color: #7f1d1d;
+}
+
+#neuro-fuzzy .output.risk-urgent .risk-chip {
+  background: #ef4444;
+  color: #fef2f2;
+}
+
+/* responsive: stack columns on small screens */
+@media (max-width: 560px) {
+  #neuro-fuzzy .row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  #neuro-fuzzy .actions {
+    align-items: flex-start;
+  }
+}
+#neuro-fuzzy .output .score-number {
+  font-size: calc(var(--fz) * 1);
+  font-weight: 700;
+}

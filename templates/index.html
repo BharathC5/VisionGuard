@@ -265,6 +265,161 @@
       </div>
       <div class="uploaded-image-container"></div>
     </section>
+<section id="neuro-fuzzy" aria-labelledby="nfTitle">
+  <div class="form-wrapper">
+    <div class="card" role="region" aria-live="polite">
+      <h2 id="nfTitle">Neuro-fuzzy follow-up recommendation</h2>
+      <p class="lead">
+        We combine your VisionGuard model stage (0–4) and a few basic health
+        answers using a simple neuro-fuzzy style rule system to suggest how
+        quickly you should see a clinician. This is informational only.
+      </p>
+
+      <form id="vgForm" novalidate>
+        <!-- Row: Age + Stage -->
+        <div class="row">
+          <div class="col">
+            <label for="age">What is your current age?</label>
+            <input
+              id="age"
+              name="age"
+              type="number"
+              min="1"
+              max="149"
+              placeholder="e.g., 32"
+              required
+            />
+            <div class="hint">Enter an integer between 1 and 149.</div>
+          </div>
+
+          <div class="col">
+            <label for="stageInput">VisionGuard model stage (0–4)</label>
+            <input
+              id="stageInput"
+              name="stageInput"
+              type="number"
+              min="0"
+              max="4"
+              placeholder="0–4"
+            />
+            <div class="hint">
+              Can be auto-filled from backend after image prediction, or
+              entered manually for testing.
+            </div>
+          </div>
+        </div>
+
+        <!-- Row: tested + family history -->
+        <div class="row">
+          <div class="col">
+            <label>Have you been tested for diabetes?</label>
+            <div class="radio-group" role="radiogroup">
+              <label>
+                <input type="radio" name="tested" value="yes" />
+                Yes
+              </label>
+              <label>
+                <input type="radio" name="tested" value="no" checked />
+                No
+              </label>
+            </div>
+            <div class="hint">
+              If yes, you'll be prompted for test date &amp; reading.
+            </div>
+          </div>
+
+          <div class="col">
+            <label>Do you have any family history of diabetes?</label>
+            <div class="radio-group">
+              <label>
+                <input type="radio" name="family" value="yes" />
+                Yes
+              </label>
+              <label>
+                <input type="radio" name="family" value="no" checked />
+                No
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Conditional: tested yes -->
+        <div id="testedFields" class="conditional" aria-hidden="true">
+          <div class="row">
+            <div class="col">
+              <label for="lastTestDate">
+                When was your last diabetes test?
+              </label>
+              <input id="lastTestDate" name="lastTestDate" type="date" />
+              <div class="hint">If unknown, you can leave this blank.</div>
+            </div>
+
+            <div class="col">
+              <label for="testReading">
+                What was the reading? (numeric)
+              </label>
+              <input
+                id="testReading"
+                name="testReading"
+                type="text"
+                inputmode="decimal"
+                placeholder="e.g., 180 mg/dL"
+              />
+              <div class="hint">
+                If you know the units (mg/dL), include them in the text.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Conditional: last doctor visit when no family history -->
+        <div id="lastVisitIfNoFamily" class="conditional" aria-hidden="true">
+          <div class="row">
+            <div class="col">
+              <label for="lastDoctorVisit">
+                When was your last general doctor visit?
+              </label>
+              <input
+                id="lastDoctorVisit"
+                name="lastDoctorVisit"
+                type="date"
+              />
+              <div class="hint">
+                Optional — sometimes useful to refine timing suggestions.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="actions">
+          <button type="button" id="recommendBtn" class="btn">
+            Get neuro-fuzzy recommendation
+          </button>
+          <button type="button" id="resetBtn" class="btn secondary">
+            Reset form
+          </button>
+          <div class="small-muted">
+            The stage (0–4) from your VisionGuard model will be used as a key
+            input alongside your answers.
+          </div>
+        </div>
+
+        <!-- Output -->
+        <div
+          id="output"
+          class="output"
+          role="status"
+          aria-live="polite"
+        >
+          Recommendation will appear here.
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+
   
 
         <footer class="contact-us" id="contact-us">
