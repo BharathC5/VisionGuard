@@ -53,7 +53,7 @@ model = None
 try:
     model = NeuroBackbone(num_classes=5, feature_dim=1024, dropout=0.3, pretrained=False)
     # adjust path if your file is elsewhere
-    state_dict = torch.load("model/neuro_ga.pt", map_location=device)
+    state_dict = torch.load("model/best_model.pt", map_location=device)
     model.load_state_dict(state_dict)
     model.to(device)
     model.eval()
